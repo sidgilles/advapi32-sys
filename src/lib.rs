@@ -10,6 +10,26 @@ extern "system" {
         TokenHandle: HANDLE, DisableAllPrivileges: BOOL, NewState: PTOKEN_PRIVILEGES,
         BufferLength: DWORD, PreviousState: PTOKEN_PRIVILEGES, ReturnLength: PDWORD,
     ) -> BOOL;
+    pub fn CryptAcquireContextA(
+        phProv: *mut HCRYPTPROV, szContainer: LPCSTR, szProvider: LPCSTR, dwProvType: DWORD,
+        dwFlags: DWORD,
+    ) -> BOOL;
+    pub fn CryptAcquireContextW(
+        phProv: *mut HCRYPTPROV, szContainer: LPCWSTR, szProvider: LPCWSTR, dwProvType: DWORD,
+        dwFlags: DWORD,
+    ) -> BOOL;
+    pub fn CryptCreateHash(
+        hProv: HCRYPTPROV, Algid: ALG_ID, hKey: HCRYPTKEY, dwFlags: DWORD, phHash: *mut HCRYPTHASH,
+    ) -> BOOL;
+    pub fn CryptDestroyHash(hHash: HCRYPTHASH) -> BOOL;
+    pub fn CryptGetHashParam(
+        hHash: HCRYPTHASH, dwParam: DWORD, pbData: *mut BYTE, pdwDataLen: *mut DWORD,
+        dwFlags: DWORD,
+    ) -> BOOL;
+    pub fn CryptHashData(
+        hHash: HCRYPTHASH, pbData: *const BYTE, dwDataLen: DWORD, dwFlags: DWORD,
+    ) -> BOOL;
+    pub fn CryptReleaseContext(hProv: HCRYPTPROV, dwFlags: DWORD) -> BOOL;
     pub fn OpenProcessToken(
         ProcessHandle: HANDLE, DesiredAccess: DWORD, TokenHandle: PHANDLE,
     ) -> BOOL;
